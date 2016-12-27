@@ -34,6 +34,25 @@ if (typeof pageWidth != "number"){
         pageHeight = document.body.clientHeight;
     }
 }
+
+//闭包应用实例
+var Counter = (function() {
+  var privateCounter = 0;
+  function changeBy(val) {
+    privateCounter += val;
+  }
+  return {
+    increment: function() {
+      changeBy(1);
+    },
+    decrement: function() {
+      changeBy(-1);
+    },
+    value: function() {
+      return privateCounter;
+    }
+  }   
+})();
 // C11 matchesSelector()
 function matchesSelector(element, selector){
     if (element.matchesSelector){
