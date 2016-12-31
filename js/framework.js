@@ -1,9 +1,15 @@
-
+//自制框架
 //定义一个对象 - 名字是$
 var $$ = function () {
 };
 //第二种写法
 $$.prototype = {
+    $q:function (str) {
+        return document.querySelector(str)
+    },
+    $qa:function (str) {
+        return document.querySelectorAll(str)
+    },
     $id: function (str) {
         return document.getElementById(str)
     },
@@ -22,7 +28,7 @@ $$.prototype = {
     trim: function (str) {
         return str.replace(/(^\s*)|(\s*$)/g, '');
     },
-    //ajax - 前面我们学习的
+    //ajax
     myAjax: function (URL, fn) {
         var xhr = createXHR();	//返回了一个对象，这个对象IE6兼容。
         xhr.onreadystatechange = function () {
@@ -48,7 +54,6 @@ $$.prototype = {
                             "MSXML2.XMLHttp"
                         ],
                         i, len;
-
                     for (i = 0, len = versions.length; i < len; i++) {
                         try {
                             new ActiveXObject(versions[i]);
@@ -59,7 +64,6 @@ $$.prototype = {
                         }
                     }
                 }
-
                 return new ActiveXObject(arguments.callee.activeXString);
             } else {
                 throw new Error("No XHR object available.");
@@ -72,7 +76,6 @@ $$.prototype = {
         var box = document.getElementById(id);
         var spans = box.getElementsByTagName('span');
         var lis = box.getElementsByTagName('li');
-
 
         //两步走
         //第一步: 先把上半部分实现
@@ -157,10 +160,9 @@ $$.prototype = {
         }
         return arr.constructor === Array;
     }
-}
+};
 //在框架中实例化，这样外面使用的使用就不用实例化了
 $$ = new $$();
-
 //·â×°Ñ¡Ôñ¿ò¼Ü
 $$.extend($$, {
     //idÑ¡ÔñÆ÷
