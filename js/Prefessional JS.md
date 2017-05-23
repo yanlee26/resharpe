@@ -81,8 +81,14 @@ var result=add(100);//300
 访问变量的方式有按值和按引用两种，而参数只能按值传递。ES中所有函数的参数都是按值传递的！
 [JS函数参数按值传递的](https://q.cnblogs.com/q/39352/)
 `
-function setName(obj){obj.name='yl';obj={};obj.name='hello'} 
-var p={};setName(p);p.name;//'yl'
+function setName(obj){   
+    obj.name='new';
+    console.log(obj);//{value:'old',name:'new'}
+    obj={};
+    obj.name='hello';
+    console.log(obj);//{name:'hello'}
+} 
+var p={value:'old'};setName(p);p.name;//'yl'
 //即使在内部修改了参数的值，但原始的引用仍然不变。实际上，当函数内部重写obj时，该变量引用的就是
 一个在函数执行完立即销毁的局部变量了。完全可以把ES函数的参数想象成局部变量
 `
