@@ -67,7 +67,7 @@
 
 ### web trainings
 
--[https://developers.google.com/web/](https://developers.google.com/web/)
+- [https://developers.google.com/web/](https://developers.google.com/web/)
 -[]()
 -[]()
 -[]()
