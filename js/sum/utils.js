@@ -249,3 +249,10 @@ function formatTime(time, option) {
     )
   }
 }
+
+function pascalCase(str='') {	
+   return str.replace(/([A-Z])/g,"-$1").toLowerCase()
+}
+function camelCase(str=''){
+    return str.replace(/-(\w)/g,($0,$1) => $1.toUpperCase())
+}
