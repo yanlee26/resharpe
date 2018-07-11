@@ -138,5 +138,114 @@ trim: function (str, type) {
 }
 
 
+function checkType=(function(){
+    let rules={
+        email(str){
+            return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
+        },
+        mobile(str){
+            return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
+        },
+        tel(str){
+            return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
+        },
+        number(str){
+            return /^[0-9]$/.test(str);
+        },
+        english(str){
+            return /^[a-zA-Z]+$/.test(str);
+        },
+        text(str){
+            return /^\w+$/.test(str);
+        },
+        chinese(str){
+            return /^[\u4E00-\u9FA5]+$/.test(str);
+        },
+        lower(str){
+            return /^[a-z]+$/.test(str);
+        },
+        upper(str){
+            return /^[A-Z]+$/.test(str);
+        }
+    };
+    //暴露接口
+    return function (str,type){
+        //如果type是函数，就扩展rules，否则就是验证数据
+        if(type.constructor===Function){
+            rules[str]=type;
+        }
+        else{
+            return rules[type]?rules[type](str):false;
+        }
+    }
+})();
 
+function parseTime(time, cFormat) {
+  if (time < 0) {
+    // t< 0 就返回当前时间
+    const t = new Date()
+    time = t.getTime()
+  }
+  if (arguments.length === 0) {
+    return null
+  }
+  const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
+  let date
+  if (typeof time === 'object') {
+    date = time
+  } else {
+    if (('' + time).length === 10) time = parseInt(time) * 1000
+    date = new Date(time)
+  }
+  const formatObj = {
+    y: date.getFullYear(),
+    m: date.getMonth() + 1,
+    d: date.getDate(),
+    h: date.getHours(),
+    i: date.getMinutes(),
+    s: date.getSeconds(),
+    a: date.getDay()
+  }
+  const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
+    let value = formatObj[key]
+    if (key === 'a') { return ['一', '二', '三', '四', '五', '六', '日'][value - 1] }
+    if (result.length > 0 && value < 10) {
+      value = '0' + value
+    }
+    return value || 0
+  })
+  return time_str
+}
+function formatTime(time, option) {
+  time = +time * 1000
+  const d = new Date(time)
+  const now = Date.now()
 
+  const diff = (now - d) / 1000
+
+  if (diff < 30) {
+    return '刚刚'
+  } else if (diff < 3600) {
+    // less 1 hour
+    return Math.ceil(diff / 60) + '分钟前'
+  } else if (diff < 3600 * 24) {
+    return Math.ceil(diff / 3600) + '小时前'
+  } else if (diff < 3600 * 24 * 2) {
+    return '1天前'
+  }
+  if (option) {
+    return parseTime(time, option)
+  } else {
+    return (
+      d.getMonth() +
+      1 +
+      '月' +
+      d.getDate() +
+      '日' +
+      d.getHours() +
+      '时' +
+      d.getMinutes() +
+      '分'
+    )
+  }
+}
