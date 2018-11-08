@@ -97,7 +97,7 @@
 ### toolsf or demo
 
 - [https://plnkr.co/edit/IyD3WSCkC7YtvqIxKEoC?p=preview](https://plnkr.co/edit/IyD3WSCkC7YtvqIxKEoC?p=preview)
-- []()
+- [wechat](http://wechat.evaad.com/test/?from=singlemessage&isappinstalled=0#/)
 - []()
 - []()
 - []()
